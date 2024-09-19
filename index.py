@@ -31,12 +31,8 @@ def main():
 
         links = []        
         # lặp đến khi ko tìm thấy nút next nữa
-        i = 1
 
         while True:
-            if i == 10:
-                break
-            i += 1
             time.sleep(2)
             products = driver.find_elements(By.CSS_SELECTOR, '#products_grid > li')
 
