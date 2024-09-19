@@ -5,10 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.edge.options import Options
 from selenium import webdriver
 from csv import DictWriter 
-from concurrent.futures import ThreadPoolExecutor
 import time 
-import os 
-import threading
 
 def main():
     # Khởi tạo trình duyệt Edge    
