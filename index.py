@@ -5,10 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.edge.options import Options
 from selenium import webdriver
 from csv import DictWriter 
-from concurrent.futures import ThreadPoolExecutor
 import time 
-import os 
-import threading
 
 def main():
     # Khởi tạo trình duyệt Edge    
@@ -31,14 +28,8 @@ def main():
 
         links = []        
         # lặp đến khi ko tìm thấy nút next nữa
-        # sửa thành lặp 3 lần để test
-
-        i = 1
 
         while True:
-            if i == 2:
-                break
-            i += 1
             time.sleep(2)
             products = driver.find_elements(By.CSS_SELECTOR, '#products_grid > li')
 
@@ -135,7 +126,7 @@ def main():
                 'Translator': translator,
                 'Publisher': publisher,
                 'Year': year,
-                'Language': language,
+                # 'Language': language,
                 'Weight': weight,
                 'Size': size,
                 'Page': page,
@@ -148,7 +139,8 @@ def main():
         print('data: ', data)
 
         csv_file = 'data.csv'
-        fieldnames = ['Title', 'Sale Price', 'Full Price', 'Book ID', 'Supplier', 'Author', 'Translator', 'Publisher', 'Year', 'Language', 'Weight', 'Size', 'Page', 'Cover Type', 'Description']
+        # fieldnames = ['Title', 'Sale Price', 'Full Price', 'Book ID', 'Supplier', 'Author', 'Translator', 'Publisher', 'Year', 'Language', 'Weight', 'Size', 'Page', 'Cover Type', 'Description']
+        fieldnames = ['Title', 'Sale Price', 'Full Price', 'Book ID', 'Supplier', 'Author', 'Translator', 'Publisher', 'Year', 'Weight', 'Size', 'Page', 'Cover Type', 'Description']
 
         with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
             writer = DictWriter(file, fieldnames=fieldnames)
