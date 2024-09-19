@@ -11,5 +11,5 @@
    + mac: source .venv/bin/activate
 7. cài đặt thư viện: pip install -r requirements.txt
 8. chạy file index.py:
-   + python index.py
-   + python3 index.py
+   + window: python index.py
+   + mac: python3 index.py
