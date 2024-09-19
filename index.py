@@ -31,12 +31,10 @@ def main():
 
         links = []        
         # lặp đến khi ko tìm thấy nút next nữa
-        # sửa thành lặp 3 lần để test
-
         i = 1
 
         while True:
-            if i == 2:
+            if i == 10:
                 break
             i += 1
             time.sleep(2)
@@ -135,7 +133,7 @@ def main():
                 'Translator': translator,
                 'Publisher': publisher,
                 'Year': year,
-                'Language': language,
+                # 'Language': language,
                 'Weight': weight,
                 'Size': size,
                 'Page': page,
@@ -148,7 +146,8 @@ def main():
         print('data: ', data)
 
         csv_file = 'data.csv'
-        fieldnames = ['Title', 'Sale Price', 'Full Price', 'Book ID', 'Supplier', 'Author', 'Translator', 'Publisher', 'Year', 'Language', 'Weight', 'Size', 'Page', 'Cover Type', 'Description']
+        # fieldnames = ['Title', 'Sale Price', 'Full Price', 'Book ID', 'Supplier', 'Author', 'Translator', 'Publisher', 'Year', 'Language', 'Weight', 'Size', 'Page', 'Cover Type', 'Description']
+        fieldnames = ['Title', 'Sale Price', 'Full Price', 'Book ID', 'Supplier', 'Author', 'Translator', 'Publisher', 'Year', 'Weight', 'Size', 'Page', 'Cover Type', 'Description']
 
         with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
             writer = DictWriter(file, fieldnames=fieldnames)
