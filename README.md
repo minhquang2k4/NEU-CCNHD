@@ -9,6 +9,7 @@
 6. kích hoạt môi trường ảo:
    + window: .venv\Scripts\activate
    + mac: source .venv/bin/activate
+* nếu báo lỗi k kích hoạt được thì chạy lệnh này trước: Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 7. cài đặt thư viện: pip install -r requirements.txt
 8. chạy file index.py:
    + window: python index.py
