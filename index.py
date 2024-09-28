@@ -8,7 +8,7 @@ from csv import DictWriter
 import time 
 
 def main():
-    # Khởi tạo trình duyệt Edge    
+    # Khởi tạo trình duyệt Edge
     options = Options()
     options.use_chromium = True
     options.add_argument("--start-maximized")
@@ -23,12 +23,13 @@ def main():
         actions = ActionChains(driver)
         actions.move_to_element(element).perform()
         # Chuyển đến trang cần crawl
-        element = driver.find_element(By.XPATH, '//*[@id="header"]/div[1]/div[2]/div/div[2]/div[1]/div/div[3]/div[2]/div[1]/div[1]/div/div/div/div/ul/li[1]/a')
+        element = driver.find_element( By.XPATH, 
+        '//*[@id="header"]/div[1]/div[2]/div/div[2]/div[1]/div/div[3]/div[2]/div[1]/div[1]/div/div/div/div/ul/li[1]/a')
         element.click()
 
+        # Mảng chứa link sản phẩm
         links = []        
-        # lặp đến khi ko tìm thấy nút next nữa
-
+        # Lặp qua các trang để lấy link sản phẩm
         while True:
             time.sleep(2)
             products = driver.find_elements(By.CSS_SELECTOR, '#products_grid > li')
@@ -39,18 +40,21 @@ def main():
                 link = product.find_element(By.TAG_NAME, 'a').get_attribute('href')
                 links.append(link)
 
-            # next page
+            # Chuyển sang trang kế tiếp
             try:
                 time.sleep(2)
+                # Tìm nút "Next"
                 next_button = WebDriverWait(driver, 10).until(
                     EC.visibility_of_element_located((By.CSS_SELECTOR, '#pagination .icon-turn-right'))
                 )
                 driver.execute_script("arguments[0].scrollIntoView();", next_button)
+                # Thực hiện click vào nút "Next
                 next_button.click()
             except:
                 # Nếu không tìm thấy nút "Next" thì thoát khỏi vòng lặp
                 break
 
+        # Tạo mảng chứa dữ liệu
         data = []
         # Lặp qua các link sản phẩm để lấy thông tin chi tiết
         for link in links:
@@ -126,7 +130,6 @@ def main():
                 'Translator': translator,
                 'Publisher': publisher,
                 'Year': year,
-                # 'Language': language,
                 'Weight': weight,
                 'Size': size,
                 'Page': page,
@@ -136,17 +139,14 @@ def main():
 
             data.append(rowData)
 
-        print('data: ', data)
-
+        # Xuất dữ liệu vào file csv
         csv_file = 'data.csv'
-        # fieldnames = ['Title', 'Sale Price', 'Full Price', 'Book ID', 'Supplier', 'Author', 'Translator', 'Publisher', 'Year', 'Language', 'Weight', 'Size', 'Page', 'Cover Type', 'Description']
         fieldnames = ['Title', 'Sale Price', 'Full Price', 'Book ID', 'Supplier', 'Author', 'Translator', 'Publisher', 'Year', 'Weight', 'Size', 'Page', 'Cover Type', 'Description']
 
         with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
             writer = DictWriter(file, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(data)
-
 
     except Exception as e:
         print(e)
